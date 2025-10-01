@@ -1,4 +1,4 @@
-# Hihger-Order Function
+# Higher-Order Function
 > I hate nested lambda
 
 - Operator of an expression can also be a subexpression

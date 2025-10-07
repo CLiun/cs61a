@@ -47,3 +47,8 @@ shrink = lambda n: f_then_g(print, shrink, n // 10)
 Tree recursion, function that call recursion function more than once in its body, the process of evalution looks like a tree
 
 Fibonacci using recursion: `fib(n) = fib(n - 2) + fib(n - 1)`. Not efficient, evaluting on same arguments repeatly, will be improved later.
+
+## Abstraction barriers
+Make barrier clearly among the represent of data sturcture,  the implement of methods calls on data, and the expose a brief part to user.
+
+Abstraction as an important idea to module the code, helps to understand use of HOF

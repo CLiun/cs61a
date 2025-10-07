@@ -25,7 +25,7 @@ def roll_dice(num_rolls, dice=six_sided):
     i = 0
     res, flag = 0, 0
     while i < num_rolls:
-        dice_value= dice()
+        dice_value = dice()
         if dice_value == 1:
             flag = 1
         res += dice_value
@@ -167,7 +167,6 @@ def play(strategy0, strategy1, update,
     while score0 < goal and score1 < goal:
         if who == 0:
             num_dice = strategy0(score0, score1)
-
             score0 = update(num_dice, score0, score1, dice)
         else:
             num_dice = strategy1(score1, score0)
@@ -235,7 +234,7 @@ def is_always_roll(strategy, goal=GOAL):
     score0 = 0
     record = strategy(0, 0)
     while score0 < goal:
-        score1 = 0
+        score1 = 0 
         while score1 < goal:
             if record != strategy(score0, score1):
                 return False
@@ -259,6 +258,14 @@ def make_averaged(original_function, times_called=1000):
     """
     # BEGIN PROBLEM 8
     "*** YOUR CODE HERE ***"
+    def cal_average(*arg):
+        i = 1
+        sum = 0
+        while i <= times_called:
+            sum += original_function(*arg)
+            i += 1
+        return sum / times_called
+    return cal_average
     # END PROBLEM 8
 
 
@@ -273,6 +280,16 @@ def max_scoring_num_rolls(dice=six_sided, times_called=1000):
     # BEGIN PROBLEM 9
     "*** YOUR CODE HERE ***"
     # END PROBLEM 9
+    i = 1
+    max_aver = 0
+    while i <= 10:
+        averaged_roll_dice = make_averaged(roll_dice, times_called)
+        average_roll_i = averaged_roll_dice(i, dice)
+        if average_roll_i > max_aver:
+            max_aver = average_roll_i
+            max_i = i
+        i += 1
+    return max_i
 
 
 def winner(strategy0, strategy1):
@@ -302,7 +319,7 @@ def run_experiments():
     print('always_roll(6) win rate:', average_win_rate(always_roll(6))) # near 0.5
     print('catch_up win rate:', average_win_rate(catch_up))
     print('always_roll(3) win rate:', average_win_rate(always_roll(3)))
-    print('always_roll(8) win rate:', average_win_rate(always_roll(8)))
+    print('always_roll(8) win rate:', average_win_rate(always_roll(8), baseline=catch_up))
 
     print('boar_strategy win rate:', average_win_rate(boar_strategy))
     print('sus_strategy win rate:', average_win_rate(sus_strategy))
@@ -311,11 +328,14 @@ def run_experiments():
 
 
 
+
 def boar_strategy(score, opponent_score, threshold=11, num_rolls=6):
     """This strategy returns 0 dice if Boar Brawl gives at least THRESHOLD
     points, and returns NUM_ROLLS otherwise. Ignore score and Sus Fuss.
     """
     # BEGIN PROBLEM 10
+    if boar_brawl(score, opponent_score) >= threshold:
+        return 0
     return num_rolls  # Remove this line once implemented.
     # END PROBLEM 10
 
@@ -323,6 +343,9 @@ def boar_strategy(score, opponent_score, threshold=11, num_rolls=6):
 def sus_strategy(score, opponent_score, threshold=11, num_rolls=6):
     """This strategy returns 0 dice when your score would increase by at least threshold."""
     # BEGIN PROBLEM 11
+    increase = sus_update(0, score, opponent_score) - score
+    if increase >= threshold:
+        return 0
     return num_rolls  # Remove this line once implemented.
     # END PROBLEM 11
 
@@ -331,8 +354,15 @@ def final_strategy(score, opponent_score):
     """Write a brief description of your final strategy.
 
     *** YOUR DESCRIPTION HERE ***
+    If using boar  rule can make greater increase than average value of roll 6 dices
+    Then, take 0 dice
     """
     # BEGIN PROBLEM 12
+    averaged_roll_dice = make_averaged(roll_dice, times_called=50)
+    average_roll_6 = averaged_roll_dice(6)
+    increase = sus_update(0, score, opponent_score) - score
+    if increase >= average_roll_6:
+        return 0
     return 6  # Remove this line once implemented.
     # END PROBLEM 12
 

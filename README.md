@@ -26,7 +26,9 @@ e.g. f(x, y) -> g(x)(y), where g(x) itself is a function, and take one argument
 
 
 ## Recursive Function
-Put an elegent example shown in course:
+Set the base case to stop recursive call, set recursive case, and take a leap of faith
+
+Put an example shown in course:
 ```python
 """Show inverse cascade"""
 def inverse_cascade(n):
@@ -43,12 +45,26 @@ grow = lambda n: f_then_g(grow, print, n // 10)
 shrink = lambda n: f_then_g(print, shrink, n // 10)
 ```
 
-## Tree Recursion
+### Tree Recursion
 Tree recursion, function that call recursion function more than once in its body, the process of evalution looks like a tree
 
 Fibonacci using recursion: `fib(n) = fib(n - 2) + fib(n - 1)`. Not efficient, evaluting on same arguments repeatly, will be improved later.
 
-## Abstraction barriers
+## Abstraction on data
+Data may be compound of primitive data type, we can construct a new data type and treat it as a abstract. Just like we give a name to a process, and abstract it as function
+
+### Abstraction barriers
 Make barrier clearly among the represent of data sturcture,  the implement of methods calls on data, and the expose a brief part to user.
 
 Abstraction as an important idea to module the code, helps to understand use of HOF
+
+### Object Concept
+- Object has attribute which bound to value, also has attribute bound to functions, those bound to functions, is called method
+
+- Using method of object, is invoking the function on the object
+
+- An object can has different name bound to it
+
+- Object has mutable type and immutable type
+
+### Mutation

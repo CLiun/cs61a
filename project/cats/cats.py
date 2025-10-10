@@ -38,6 +38,13 @@ def pick(paragraphs, select, k):
     """
     # BEGIN PROBLEM 1
     "*** YOUR CODE HERE ***"
+    count = -1
+    for p in paragraphs:
+        if select(p):
+            count += 1
+        if count == k:
+            return p
+    return ""
     # END PROBLEM 1
 
 
@@ -58,6 +65,13 @@ def about(subject):
 
     # BEGIN PROBLEM 2
     "*** YOUR CODE HERE ***"
+    def contain_word(paragraph):
+        paragraph = split(lower(remove_punctuation(paragraph)))
+        for word in paragraph:
+            if word in subject:
+                return True
+        return False
+    return contain_word
     # END PROBLEM 2
 
 
@@ -88,6 +102,20 @@ def accuracy(typed, source):
     source_words = split(source)
     # BEGIN PROBLEM 3
     "*** YOUR CODE HERE ***"
+    len_type = len(typed_words)
+    len_src = len(source_words)
+    if len_src == 0 and len_type == 0:
+        return 100.0
+    elif len_src == 0:
+        return 0.0
+    elif len_type == 0:
+        return 0.0
+    else:
+        correct = 0
+        for i in range(min(len_type, len_src)):
+            if typed_words[i] == source_words[i]:
+                correct += 1
+        return correct / len_type * 100
     # END PROBLEM 3
 
 
@@ -106,6 +134,7 @@ def wpm(typed, elapsed):
     assert elapsed > 0, "Elapsed time must be positive"
     # BEGIN PROBLEM 4
     "*** YOUR CODE HERE ***"
+    return len(typed) / 5 / elapsed * 60
     # END PROBLEM 4
 
 
@@ -167,6 +196,12 @@ def autocorrect(typed_word, word_list, diff_function, limit):
     """
     # BEGIN PROBLEM 5
     "*** YOUR CODE HERE ***"
+    ans = typed_word
+    for i in range(len(word_list)):
+        if word_list[i] == ans:
+            return ans
+        diff = diff_function(typed_word, word_list[i], limit)
+    return ans
     # END PROBLEM 5
 
 

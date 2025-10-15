@@ -58,15 +58,6 @@ Make barrier clearly among the represent of data sturcture,  the implement of me
 
 Abstraction as an important idea to module the code, helps to understand use of HOF
 
-### Object Concept
-- Object has attribute which bound to value, also has attribute bound to functions, those bound to functions, is called method
-
-- Using method of object, is invoking the function on the object
-
-- An object can has different name bound to it
-
-- Object has mutable type and immutable type
-
 ### Mutation
 `tuple` is a immutable object, but if the element in tuple is mutable, we can still change the contents, like:
 
@@ -120,6 +111,14 @@ def partition_gen(n, m):
     if m > 1:
         yield from partition_gen(n, m - 1)
 ```
+### Object Concept
+- Object has attribute which bound to value, also has attribute bound to functions, called method. Method is specific for an object
 
-## todo
+- Using method of object, is invoking the function on the object
+
+- An object can has different name bound to it
+
+- Object has mutable type and immutable type
+
+### todo
 - [x] Generator version on partition 
